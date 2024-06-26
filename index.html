@@ -339,8 +339,9 @@
 
     function change() {
       var bounds = self.map.getBounds()
-      console.log(1,bounds)
-      if (!bounds.El) return; //确保能取到正确的边界数据
+      var sw = bounds.getSouthWest()
+      var ne = bounds.getNorthEast()
+      if (!sw || !ne) return; //确保能取到正确的边界数据
 
       // 降低事件的频率
       if (changeFlag) return;
@@ -348,9 +349,6 @@
       setTimeout(function () {
         changeFlag = false
       }, 500)
-
-      var sw = bounds.getSouthWest()
-      var ne = bounds.getNorthEast()
 
       var nw = new BMap.Point(sw.lng, ne.lat)// 西北角
       var se = new BMap.Point(ne.lng,sw.lat)// 东南角
